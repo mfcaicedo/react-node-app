@@ -6,6 +6,10 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+//CONFIGURAR SERVER BASICO
+
+
+
 
 app.get("/api", (req, res) => {
     res.json({ message: "Hola probando el servidor!" });
