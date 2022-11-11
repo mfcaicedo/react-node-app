@@ -1,3 +1,19 @@
+
+module.exports= function (app){
+    const product = require('../controllers/productController');
+
+    //RUTAS
+    app.route('/products')
+    .get(product.listProducts)
+    .post(product.createProduct);
+
+    app.route('/products/:productId')
+    .get(product.findById)
+    .put(product.editProduct)
+    .delete(product.deleteProduct);
+};
+
+/*
 const express = require("express");
 const router = express.Router();
 const productSchema = require("../models/product");
@@ -20,3 +36,5 @@ router.post("/products", (req, res) => {
 });
 
 module.exports = router;
+
+*/

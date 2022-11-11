@@ -1,26 +1,49 @@
 //desde aqui correra el servidor de nodejs y react de nuestro proyecto
 
+const { Router } = require("express");
 const express = require("express");
-const mongoose = require("mongoose");
-require("dotenv").config(); //para poder usar las variables de entorno
-const productsRoutes = require("./routes/product");
-
 const app = express();
 const PORT = process.env.PORT || 3001;
+const mongoose = require("mongoose");
+const product = require('./models/product');
 
+require("dotenv").config(); //para poder usar las variables de entorno
+const productsRoutes = require("./routes/productRoute");
+
+//bodyParser = require('body-parser');
+
+//Conexion a la base de datos de mongoDB
+mongoose.connect(process.env.MONGODB_URI || "mongodb://0.0.0.0/dbStackMern")
+.then(() => console.log("MongoDB connected..."))
+.catch(err => console.log(err));
+
+// app.use(bodyParser.urlencoded({ extended: true })); 
+// app.use(bodyParser.json());
 // Middleware
 app.use(express.json());
-app.use("/api", productsRoutes);
+
+productsRoutes(app);
+app.listen(PORT);
+
+
+//const productsRoutes = require("./routes/productRoute");
+
+
+
+
+
+
+//app.use("/api", productsRoutes);
 // app.use(express.urlencoded({ extended: true }));
 
 //Rutas de la API
-app.get("/", (req, res) => {
-    res.json({ message: "Hola probando el servidor!" });
-});
+// app.get("/", (req, res) => {
+//     res.json({ message: "Hola probando el servidor!" });
+// });
 
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server listening on ${PORT}`);
+// });
 
 //Conexion a la base de datos de mongoDB
 // var MongoClient = require('mongodb').MongoClient;
@@ -37,7 +60,4 @@ app.listen(PORT, () => {
 //     setTimeout(() => {client.close()}, 1500)
 // });
 
-//Conexion a la base de datos de mongoDB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dbStackMern")
-.then(() => console.log("MongoDB connected..."))
-.catch(err => console.log(err));
+
