@@ -1,42 +1,33 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+//importamos el componente de productos 
+import ViewProduct from './components/ViewProduct';
+import ProductDetail from './components/ProductDetail';
+import Home from './components/Home';
+import AddProduct from './components/AddProduct';
+
+import Navbar from './components/Navbar';
+
 
 function App() {
-  //Se declara un estado para guardar los datos que se obtengan del servidor 
-  const [data, setData] = useState({ message: "" });
-
-  /**
-   * @brief Metodo para obtener los datos del servidor
-   */
-  const getData = async () => {
-    fetch("/api")
-    .then(response => response.json())
-    .then(data => setData(data));
-  };
-
-  //UseEffect se ejecuta cuando se carga el componente
-  useEffect(() => {
-    getData();
-  }, []);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {data ? data.message : "Cargando..."}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/products" element={<ViewProduct />} />
+      <Route path="/products/:id" element={<ProductDetail />} />
+      <Route path="/addProduct" element={<AddProduct />} />
+      
+
+    </Routes>
+    // <div className="App bg-slate-00">
+    //   {/* navbar */}
+    //   <Navbar />
+    //   {/* LLamado de los componentes */}
+    //   <ViewProduct />
+
+    // </div>
   );
 }
 

@@ -6,7 +6,7 @@ let product = require("../models/product");
 product=mongoose.model('Product');
 
 //Listar productos
-exports.listProducts=function(req,res){
+exports.listProducts = function(req,res){
     product.find({}, function (err, product){
         if(err){
             res.send(err);
@@ -16,8 +16,8 @@ exports.listProducts=function(req,res){
 };
 
 //Crear producto
-exports.createProduct=function(req,res){
-    const newProduct=new product(req.body);
+exports.createProduct = function(req,res){
+    const newProduct = new product(req.body);
     newProduct.save(function (err,product){
         if(err){
             res.send(err);
@@ -53,6 +53,6 @@ exports.deleteProduct = function(req,res){
         if(err){
             res.send(err);
         }
-        res.json({message: 'Producto Eliminado correctamente'})
+        res.json({message: 'Producto eliminado correctamente'})
     });
 };
